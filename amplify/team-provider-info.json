@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-froc3-dev-170045-authRole",
+      "UnauthRoleArn": "arn:aws:iam::301855093169:role/amplify-froc3-dev-170045-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::301855093169:role/amplify-froc3-dev-170045-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-froc3-dev-170045-deployment",
+      "UnauthRoleName": "amplify-froc3-dev-170045-unauthRole",
+      "StackName": "amplify-froc3-dev-170045",
+      "StackId": "arn:aws:cloudformation:us-east-1:301855093169:stack/amplify-froc3-dev-170045/410f1960-e88f-11ee-b246-120d461ec6f7",
+      "AmplifyAppId": "d5xox8elpwme7"
+    }
+  }
+}

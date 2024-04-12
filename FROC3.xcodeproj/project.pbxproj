@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4A4AF43A33C8382303F91F5 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DD4E35167B52453E4A3E8D39 /* amplifyconfiguration.json */; };
+		E8ACC11D76D9EDB1713741AE /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 1D14CDEDD5A6A9F98B031B28 /* awsconfiguration.json */; };
+		FA67EE842BAE2C1100E3D86C /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = FA67EE832BAE2C1100E3D86C /* Amplify */; };
+		FA67EE862BAE2C2B00E3D86C /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = FA67EE852BAE2C2B00E3D86C /* AWSCognitoAuthPlugin */; };
 		FA87C4AB2BAE273B00DBFDBF /* FROC3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87C4AA2BAE273B00DBFDBF /* FROC3App.swift */; };
 		FA87C4AD2BAE273B00DBFDBF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87C4AC2BAE273B00DBFDBF /* ContentView.swift */; };
 		FA87C4AF2BAE273B00DBFDBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA87C4AE2BAE273B00DBFDBF /* Assets.xcassets */; };
@@ -34,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D14CDEDD5A6A9F98B031B28 /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		DD4E35167B52453E4A3E8D39 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		FA87C4A72BAE273B00DBFDBF /* FROC3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FROC3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA87C4AA2BAE273B00DBFDBF /* FROC3App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FROC3App.swift; sourceTree = "<group>"; };
 		FA87C4AC2BAE273B00DBFDBF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA67EE842BAE2C1100E3D86C /* Amplify in Frameworks */,
+				FA67EE862BAE2C2B00E3D86C /* AWSCognitoAuthPlugin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +79,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F5B9F2F6D8C9EB4058FBEC01 /* AmplifyConfig */ = {
+			isa = PBXGroup;
+			children = (
+				1D14CDEDD5A6A9F98B031B28 /* awsconfiguration.json */,
+				DD4E35167B52453E4A3E8D39 /* amplifyconfiguration.json */,
+			);
+			name = AmplifyConfig;
+			sourceTree = "<group>";
+		};
 		FA87C49E2BAE273B00DBFDBF = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +95,7 @@
 				FA87C4BA2BAE273B00DBFDBF /* FROC3Tests */,
 				FA87C4C42BAE273B00DBFDBF /* FROC3UITests */,
 				FA87C4A82BAE273B00DBFDBF /* Products */,
+				F5B9F2F6D8C9EB4058FBEC01 /* AmplifyConfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +161,10 @@
 			dependencies = (
 			);
 			name = FROC3;
+			packageProductDependencies = (
+				FA67EE832BAE2C1100E3D86C /* Amplify */,
+				FA67EE852BAE2C2B00E3D86C /* AWSCognitoAuthPlugin */,
+			);
 			productName = FROC3;
 			productReference = FA87C4A72BAE273B00DBFDBF /* FROC3.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +237,9 @@
 				Base,
 			);
 			mainGroup = FA87C49E2BAE273B00DBFDBF;
+			packageReferences = (
+				FA87C4D42BAE278900DBFDBF /* XCRemoteSwiftPackageReference "amplify-swift" */,
+			);
 			productRefGroup = FA87C4A82BAE273B00DBFDBF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,6 +258,8 @@
 			files = (
 				FA87C4B22BAE273B00DBFDBF /* Preview Assets.xcassets in Resources */,
 				FA87C4AF2BAE273B00DBFDBF /* Assets.xcassets in Resources */,
+				E8ACC11D76D9EDB1713741AE /* awsconfiguration.json in Resources */,
+				E4A4AF43A33C8382303F91F5 /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +615,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA87C4D42BAE278900DBFDBF /* XCRemoteSwiftPackageReference "amplify-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aws-amplify/amplify-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.28.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA67EE832BAE2C1100E3D86C /* Amplify */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA87C4D42BAE278900DBFDBF /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = Amplify;
+		};
+		FA67EE852BAE2C2B00E3D86C /* AWSCognitoAuthPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA87C4D42BAE278900DBFDBF /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = AWSCognitoAuthPlugin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA87C49F2BAE273B00DBFDBF /* Project object */;
 }
