@@ -274,8 +274,11 @@ struct ViewClosetsView: View {
             }
         )
         .sheet(isPresented: $showingNotifications) {
-            NotificationsView(showingNotifications: $showingNotifications)
+            NavigationView {
+                NotificationsView(showingNotifications: $showingNotifications)
+            }
         }
+        
     }
 }
 
@@ -292,32 +295,61 @@ struct NotificationItem: Identifiable {
     var icon: String
 }
 
-// Define the NotificationCell view with a NavigationLink to FulfillmentView
+//struct NotificationCell: View {
+//    var notification: NotificationItem
+//    
+//    var body: some View {
+//        HStack {
+//            Image(systemName: notification.icon)
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: 20, height: 20)
+//            Text("\(notification.username) \(notification.actionText)")
+//            Spacer()
+//            
+//            // Only show the NavigationLink for rent and purchase notifications
+//            if notification.type == .purchase || notification.type == .rent {
+//                NavigationLink(destination: FulfillmentView()) {
+//                    Spacer() // Push the text to the left side, closer to the arrow
+//                    Text("Fulfill")
+//                        .foregroundColor(.blue)
+//                        .padding(.trailing) // Adjust the trailing padding to move closer to the arrow
+//                }
+//                .buttonStyle(BorderlessButtonStyle()) // To remove any default styling that may affect layout
+//            }
+//        }
+//    }
+//}
+
 struct NotificationCell: View {
     var notification: NotificationItem
-    @State private var showFulfillment = false
     
     var body: some View {
-        NavigationLink(destination: FulfillmentView(), isActive: $showFulfillment) {
-            EmptyView()
-        }
-        .hidden() // This keeps the link invisible while still functional.
-        
         HStack {
             Image(systemName: notification.icon)
                 .resizable()
-                .frame(width: 20, height: 20)
+                .scaledToFit()
+                .frame(width: 40, height: 20)
             Text("\(notification.username) \(notification.actionText)")
-            Spacer()
+            Spacer() // Use Spacer to push all content to the left
+
+            // Conditionally show the NavigationLink for rent and purchase notifications
             if notification.type == .purchase || notification.type == .rent {
-                Button("Fulfill") {
-                    self.showFulfillment = true
+                NavigationLink(destination: FulfillmentView()) {
+                    Text("Fulfill")
+                        .foregroundColor(.blue)
+                        .frame(maxWidth: .infinity, alignment: .trailing) // Align text to the trailing edge of the available space
                 }
-                .buttonStyle(BorderlessButtonStyle())
+            } else {
+                // For other notification types, you might want to keep the space without the button.
+                // If you want nothing there, just remove this else clause.
+                EmptyView()
             }
         }
+        .frame(maxWidth: .infinity) // Ensure the HStack takes the full width of the parent view
     }
 }
+
 
 // Define your NotificationsView with a list of notifications
 struct NotificationsView: View {
@@ -327,7 +359,11 @@ struct NotificationsView: View {
         NotificationItem(type: .comment, username: "Mark", actionText: "commented 'cool'", icon: "bubble.right"),
         NotificationItem(type: .purchase, username: "Katy", actionText: "wants to buy 'red shorts'", icon: "cart"),
         NotificationItem(type: .like, username: "@Andrea67", actionText: "liked your post", icon: "heart"),
-        NotificationItem(type: .rent, username: "Jacob", actionText: "wants to rent 'wedding set'", icon: "tag")
+        NotificationItem(type: .rent, username: "Jacob", actionText: "wants to rent 'wedding set'", icon: "tag"),
+        NotificationItem(type: .comment, username: "@Jack", actionText: "commented 'cool'", icon: "bubble.right"),
+        NotificationItem(type: .rent, username: "@Sam", actionText: "wants to buy 'red shorts'", icon: "cart"),
+        NotificationItem(type: .like, username: "@Francis23", actionText: "liked your post", icon: "heart"),
+        NotificationItem(type: .purchase, username: "@Jordyboy6199", actionText: "wants to rent 'wedding set'", icon: "tag")
     ]
     
     var body: some View {
@@ -409,6 +445,7 @@ struct FulfillmentView: View {
 //     NotificationItem(type: .like, username: "@Andrea67", actionText: "liked your post", icon: "heart"),
 //     NotificationItem(type: .rent, username: "Jacob", actionText: "wants to rent 'wedding set'", icon: "tag")
 // ]
+//commands: ctrl i for formatting, command option p for preview, and make sure you have the code for it in contentview
 
 struct ContentView_Previews: PreviewProvider {
      static var previews: some View {
