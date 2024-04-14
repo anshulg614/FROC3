@@ -282,7 +282,6 @@ struct ViewClosetsView: View {
     }
 }
 
-//Notification views + Item object data
 struct NotificationItem: Identifiable {
     enum NotificationType {
         case comment, purchase, like, rent
@@ -293,36 +292,16 @@ struct NotificationItem: Identifiable {
     var username: String
     var actionText: String
     var icon: String
+    // You might want to include product details here as well if they are specific to each notification
 }
-
-//struct NotificationCell: View {
-//    var notification: NotificationItem
-//    
-//    var body: some View {
-//        HStack {
-//            Image(systemName: notification.icon)
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 20, height: 20)
-//            Text("\(notification.username) \(notification.actionText)")
-//            Spacer()
-//            
-//            // Only show the NavigationLink for rent and purchase notifications
-//            if notification.type == .purchase || notification.type == .rent {
-//                NavigationLink(destination: FulfillmentView()) {
-//                    Spacer() // Push the text to the left side, closer to the arrow
-//                    Text("Fulfill")
-//                        .foregroundColor(.blue)
-//                        .padding(.trailing) // Adjust the trailing padding to move closer to the arrow
-//                }
-//                .buttonStyle(BorderlessButtonStyle()) // To remove any default styling that may affect layout
-//            }
-//        }
-//    }
-//}
 
 struct NotificationCell: View {
     var notification: NotificationItem
+    // Dummy data for the sake of example
+    let productImage = UIImage(systemName: "tshirt")!
+    let price = "$49.99"
+    let productInfo = "Red shorts - Size M"
+    let rentDuration = "1 week"
     
     var body: some View {
         HStack {
@@ -331,40 +310,40 @@ struct NotificationCell: View {
                 .scaledToFit()
                 .frame(width: 40, height: 20)
             Text("\(notification.username) \(notification.actionText)")
-            Spacer() // Use Spacer to push all content to the left
+            Spacer()
 
-            // Conditionally show the NavigationLink for rent and purchase notifications
             if notification.type == .purchase || notification.type == .rent {
-                NavigationLink(destination: FulfillmentView()) {
+                NavigationLink(destination: FulfillmentView(
+                    notificationType: notification.type,
+                    productImage: productImage,
+                    price: price,
+                    productInfo: productInfo,
+                    rentDuration: rentDuration,
+                    shippingLabel: "UPS Ground", // Replace with actual shipping label
+                    shippingAddress: "123 Apple Lane, Cupertino, CA" // Replace with actual address
+                )) {
                     Text("Fulfill")
                         .foregroundColor(.blue)
-                        .frame(maxWidth: .infinity, alignment: .trailing) // Align text to the trailing edge of the available space
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-            } else {
-                // For other notification types, you might want to keep the space without the button.
-                // If you want nothing there, just remove this else clause.
-                EmptyView()
             }
         }
-        .frame(maxWidth: .infinity) // Ensure the HStack takes the full width of the parent view
+        .frame(maxWidth: .infinity)
     }
 }
 
-
-// Define your NotificationsView with a list of notifications
 struct NotificationsView: View {
     @Binding var showingNotifications: Bool
-    // Mock data for the notifications list
     let notifications = [
-        NotificationItem(type: .comment, username: "Mark", actionText: "commented 'cool'", icon: "bubble.right"),
-        NotificationItem(type: .purchase, username: "Katy", actionText: "wants to buy 'red shorts'", icon: "cart"),
-        NotificationItem(type: .like, username: "@Andrea67", actionText: "liked your post", icon: "heart"),
-        NotificationItem(type: .rent, username: "Jacob", actionText: "wants to rent 'wedding set'", icon: "tag"),
-        NotificationItem(type: .comment, username: "@Jack", actionText: "commented 'cool'", icon: "bubble.right"),
-        NotificationItem(type: .rent, username: "@Sam", actionText: "wants to buy 'red shorts'", icon: "cart"),
-        NotificationItem(type: .like, username: "@Francis23", actionText: "liked your post", icon: "heart"),
-        NotificationItem(type: .purchase, username: "@Jordyboy6199", actionText: "wants to rent 'wedding set'", icon: "tag")
-    ]
+            NotificationItem(type: .comment, username: "Mark", actionText: "commented 'cool'", icon: "bubble.right"),
+            NotificationItem(type: .purchase, username: "Katy", actionText: "wants to buy 'red shorts'", icon: "cart"),
+            NotificationItem(type: .like, username: "@Andrea67", actionText: "liked your post", icon: "heart"),
+            NotificationItem(type: .rent, username: "Jacob", actionText: "wants to rent 'wedding set'", icon: "tag"),
+            NotificationItem(type: .comment, username: "@Jack", actionText: "commented 'cool'", icon: "bubble.right"),
+            NotificationItem(type: .rent, username: "@Sam", actionText: "wants to buy 'red shorts'", icon: "cart"),
+            NotificationItem(type: .like, username: "@Francis23", actionText: "liked your post", icon: "heart"),
+            NotificationItem(type: .purchase, username: "@Jordyboy6199", actionText: "wants to rent 'wedding set'", icon: "tag")
+        ]
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -381,63 +360,109 @@ struct NotificationsView: View {
             }
             .padding()
             
-            List {
-                ForEach(notifications) { item in
-                    NotificationCell(notification: item)
-                }
+            List(notifications) { item in
+                NotificationCell(notification: item)
             }
             .listStyle(PlainListStyle())
         }
     }
 }
 
-// Define the FulfillmentView for the details of the fulfillment process
+
 struct FulfillmentView: View {
     @Environment(\.presentationMode) var presentationMode
     
+    // These properties should be passed to this view when it's initialized
+    let notificationType: NotificationItem.NotificationType
+    let productImage: UIImage
+    let price: String
+    let productInfo: String
+    let rentDuration: String
+    let shippingLabel: String
+    let shippingAddress: String
+
     var body: some View {
-        VStack {
-            // Fulfillment Header
-            HStack {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.left")
-                        Text("Fulfillment")
-                            .bold()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                // Add more space at the top if necessary
+                Spacer(minLength: 20) // This adds space at the top inside the ScrollView
+
+                HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.left")
+                            Text("Fulfillment")
+                                .bold()
+                        }
                     }
+                    Spacer()
                 }
-                Spacer()
-            }
-            .padding()
-            
-            // Your fulfillment content here...
-            
-            Spacer()
-            
-            // Buttons at the bottom
-            HStack {
-                Button("Confirm & Ship") {
-                    // Confirm and ship the product
-                }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
+                .padding(.horizontal)
                 
-                Button("Don't Fulfill") {
-                    presentationMode.wrappedValue.dismiss()
+                HStack {
+                    Image(uiImage: productImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 100, height: 100)
+                        .padding(.vertical) // for top and bottom padding
+
+                    VStack(alignment: .leading, spacing: 5) { // added spacing between text elements
+                        Text(price)
+                            .font(.headline)
+                        Text(productInfo)
+                            .font(.subheadline)
+                    }
+                    Spacer()
                 }
-                .padding()
-                .background(Color.red)
-                .foregroundColor(.white)
-                .cornerRadius(8)
+                .padding(.horizontal) // Add padding to this HStack
+                
+                if notificationType == .rent {
+                    Text("Rent Duration: \(rentDuration)")
+                        .padding(.horizontal) // Apply padding to this Text view
+                } else {
+                    Text("Sell to Buyer")
+                        .padding(.horizontal) // Apply padding to this Text view
+                }
+
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Shipping Label: \(shippingLabel)")
+                    Text("Shipping Address: \(shippingAddress)")
+                }
+                .padding(.horizontal) // Add padding to this VStack
+
+                Spacer()
+                HStack {
+                    Spacer() // This Spacer will push the buttons to the center
+                    Button("Confirm & Ship") {
+                        // action to confirm and ship the product
+                    }
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+
+                    Button("Don't Fulfill") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    Spacer() // This Spacer will ensure the buttons stay in the center
+                }
+                .padding(.bottom, 20) // This adds space at the bottom inside the ScrollView
             }
+            .padding(.horizontal) // Apply horizontal padding once, to the entire VStack
+            .padding(.top, 20) // Add more padding at the top to push the content down from the navigation bar
         }
         .navigationBarHidden(true)
     }
 }
+
+
 
 //let notifications = [
 //     NotificationItem(type: .comment, username: "Mark", actionText: "commented 'cool'", icon: "bubble.right"),
