@@ -206,27 +206,104 @@ struct Post: Identifiable {
     // Add other post properties here
 }
 
+//struct ViewClosetsView: View {
+//    // Sample posts data
+//    let posts = [Post(username: "user1"), Post(username: "user2")]
+//    @State private var showingNotifications = false
+//    
+//    var body: some View {
+//        VStack {
+//            // Header
+//            HStack {
+//                Text("FROC")
+//                    .font(.custom("CurvyFontName", size: 34))
+//                Spacer()
+//                Button(action: {
+//                    self.showingNotifications = true
+//                }) {
+//                    Image(systemName: "bell.fill")
+//                }
+//                Image(systemName: "message.fill")
+//            }
+//            .padding()
+//
+//
+//            // Posts List
+//            ScrollView {
+//                VStack(spacing: 20) {
+//                    ForEach(posts) { post in
+//                        VStack(alignment: .leading) {
+//                            // Post Header
+//                            HStack {
+//                                Image(systemName: "person.crop.circle.fill") // Profile picture placeholder
+//                                    .resizable()
+//                                    .frame(width: 50, height: 50)
+//                                Text(post.username)
+//                                Spacer()
+//                                Image(systemName: "arrowshape.turn.up.right") // Share icon
+//                            }
+//                            .padding(.horizontal)
+//
+//                            // Post Content
+//                            Rectangle() // This represents the post content, replace it with actual content
+//                                .foregroundColor(.gray)
+//                                .aspectRatio(contentMode: .fit)
+//
+//                            // Post Footer
+//                            HStack {
+//                                Image(systemName: "heart") // Heart icon placeholder
+//                                Image(systemName: "bubble.left") // Comment icon placeholder
+//                                Image(systemName: "bookmark") // Bookmark icon placeholder
+//                                Spacer()
+//                                Button("Rent/Buy") {
+//                                    // Handle Rent/Buy action
+//                                }
+//                            }
+//                            .padding(.horizontal)
+//                        }
+//                        .padding(.bottom)
+//                    }
+//                }
+//            }
+//        }
+//        .navigationBarTitleDisplayMode(.inline)
+//        .navigationBarItems(
+//            leading: Text("FROC").font(.custom("CurvyFontName", size: 24)),
+//            trailing: Button(action: { self.showingNotifications = true }) {
+//                Image(systemName: "bell.fill")
+//            }
+//        )
+//        .sheet(isPresented: $showingNotifications) {
+//            NavigationView {
+//                NotificationsView(showingNotifications: $showingNotifications)
+//            }
+//        }
+//        
+//    }
+//}
+
+
 struct ViewClosetsView: View {
     // Sample posts data
     let posts = [Post(username: "user1"), Post(username: "user2")]
     @State private var showingNotifications = false
+    @State private var showingShippingPayment = false // State to present the ShippingPaymentView
     
     var body: some View {
         VStack {
             // Header
             HStack {
                 Text("FROC")
-                    .font(.custom("CurvyFontName", size: 34))
+                    .font(.custom("CurvyFontName", size: 34)) // Replace "CurvyFontName" with your actual font name
                 Spacer()
                 Button(action: {
                     self.showingNotifications = true
                 }) {
-                    Image(systemName: "bell.fill")
+                    Image(systemName: "bell.fill") // Notification bell icon
                 }
-                Image(systemName: "message.fill")
+                Image(systemName: "message.fill") // Messages icon
             }
             .padding()
-
 
             // Posts List
             ScrollView {
@@ -256,7 +333,7 @@ struct ViewClosetsView: View {
                                 Image(systemName: "bookmark") // Bookmark icon placeholder
                                 Spacer()
                                 Button("Rent/Buy") {
-                                    // Handle Rent/Buy action
+                                    showingShippingPayment = true // Trigger the presentation of ShippingPaymentView
                                 }
                             }
                             .padding(.horizontal)
@@ -278,7 +355,15 @@ struct ViewClosetsView: View {
                 NotificationsView(showingNotifications: $showingNotifications)
             }
         }
-        
+        .sheet(isPresented: $showingShippingPayment) {
+            // Pass actual product image, price, and description
+            ShippingPaymentView(
+                productImage: UIImage(systemName: "tshirt.fill")!, // Placeholder for actual product image
+                price: "$49.99",
+                productInfo: "Red shorts - Size M"
+                // Pass other necessary data here
+            )
+        }
     }
 }
 
@@ -462,14 +547,120 @@ struct FulfillmentView: View {
     }
 }
 
+struct ShippingPaymentView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @State private var rentDuration: Int = 1 // Default rent duration
+    @State private var isRent: Bool = true // Toggle between rent or buy
+    @State private var name: String = ""
+    @State private var address: String = ""
+
+    var productImage: UIImage // Placeholder for actual image
+    var price: String
+    var productInfo: String
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 15) { // Adjust
+                Spacer(minLength: 10) // This adds space at the top inside the ScrollViewspacing as needed
+                // Navigation Bar
+                HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.left")
+                            Text("Shipping & Payment")
+                                .bold()
+                        }
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal)
+
+                // Product Image and Info
+                HStack {
+                    Image(uiImage: productImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 100, height: 100)
+                    VStack(alignment: .leading) {
+                        Text(price)
+                            .font(.headline)
+                        Text(productInfo)
+                            .font(.subheadline)
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal)
+
+                // Rent or Buy Toggle
+                Toggle(isOn: $isRent) {
+                    Text(isRent ? "Rent" : "Buy")
+                        .font(.headline)
+                }
+                .padding(.horizontal)
+
+                // Rent Duration Picker
+                if isRent {
+                    Picker("Rent Duration", selection: $rentDuration) {
+                        ForEach(1...10, id: \.self) { week in
+                            Text("\(week) week\(week > 1 ? "s" : "")")
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(height: 120) // Set the height to limit picker size
+                    .clipped() // Clip the overflowing part of the picker
+                    .padding(.horizontal)
+                }
+
+                // Name and Address TextFields
+                TextField("Name", text: $name)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.horizontal)
+
+                TextField("Address", text: $address)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.horizontal)
+
+                // Payment Button
+                Button(action: {
+                    let username = "venmo-username" // Replace with the actual Venmo username
+                    let amount = "1.00" // The amount to pay
+                    let note = "Payment for goods" // A note for the payment
+
+                    // Create the URL string for Venmo
+                    let urlString = "venmo://paycharge?txn=pay&recipients=\(username)&amount=\(amount)&note=\(note)"
+
+                    // Encode the URL string
+                    let encodedUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+                    // Check if the URL can be opened
+                    if let url = URL(string: encodedUrlString!), UIApplication.shared.canOpenURL(url) {
+                        // Open the URL
+                        UIApplication.shared.open(url)
+                    } else {
+                        // Handle the error, such as showing an alert to the user
+                        print("Cannot open Venmo")
+                    }
+                }) {
+                    HStack {
+                        Image(systemName: "creditcard") // Placeholder for Venmo icon
+                        Text("Pay with Venmo")
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+                .padding(.horizontal)
+            }
+        }
+        .navigationBarHidden(true)
+    }
+}
 
 
-//let notifications = [
-//     NotificationItem(type: .comment, username: "Mark", actionText: "commented 'cool'", icon: "bubble.right"),
-//     NotificationItem(type: .purchase, username: "Katy", actionText: "wants to buy 'red shorts'", icon: "cart"),
-//     NotificationItem(type: .like, username: "@Andrea67", actionText: "liked your post", icon: "heart"),
-//     NotificationItem(type: .rent, username: "Jacob", actionText: "wants to rent 'wedding set'", icon: "tag")
-// ]
 //commands: ctrl i for formatting, command option p for preview, and make sure you have the code for it in contentview
 
 struct ContentView_Previews: PreviewProvider {
