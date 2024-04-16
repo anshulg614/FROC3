@@ -167,9 +167,9 @@ struct MyClosetView: View {
                     .resizable()
                     .frame(width: 50, height: 50)
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Username")
+                    Text("Kylie Jenner")
                         .font(.headline)
-                    Text("Followers: 100 • Rented/Bought")
+                    Text("Followers: 100 • Rented/Bought: 22")
                 }
                 Spacer()
                 Image(systemName: "ellipsis")
@@ -206,86 +206,9 @@ struct Post: Identifiable {
     // Add other post properties here
 }
 
-//struct ViewClosetsView: View {
-//    // Sample posts data
-//    let posts = [Post(username: "user1"), Post(username: "user2")]
-//    @State private var showingNotifications = false
-//    
-//    var body: some View {
-//        VStack {
-//            // Header
-//            HStack {
-//                Text("FROC")
-//                    .font(.custom("CurvyFontName", size: 34))
-//                Spacer()
-//                Button(action: {
-//                    self.showingNotifications = true
-//                }) {
-//                    Image(systemName: "bell.fill")
-//                }
-//                Image(systemName: "message.fill")
-//            }
-//            .padding()
-//
-//
-//            // Posts List
-//            ScrollView {
-//                VStack(spacing: 20) {
-//                    ForEach(posts) { post in
-//                        VStack(alignment: .leading) {
-//                            // Post Header
-//                            HStack {
-//                                Image(systemName: "person.crop.circle.fill") // Profile picture placeholder
-//                                    .resizable()
-//                                    .frame(width: 50, height: 50)
-//                                Text(post.username)
-//                                Spacer()
-//                                Image(systemName: "arrowshape.turn.up.right") // Share icon
-//                            }
-//                            .padding(.horizontal)
-//
-//                            // Post Content
-//                            Rectangle() // This represents the post content, replace it with actual content
-//                                .foregroundColor(.gray)
-//                                .aspectRatio(contentMode: .fit)
-//
-//                            // Post Footer
-//                            HStack {
-//                                Image(systemName: "heart") // Heart icon placeholder
-//                                Image(systemName: "bubble.left") // Comment icon placeholder
-//                                Image(systemName: "bookmark") // Bookmark icon placeholder
-//                                Spacer()
-//                                Button("Rent/Buy") {
-//                                    // Handle Rent/Buy action
-//                                }
-//                            }
-//                            .padding(.horizontal)
-//                        }
-//                        .padding(.bottom)
-//                    }
-//                }
-//            }
-//        }
-//        .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarItems(
-//            leading: Text("FROC").font(.custom("CurvyFontName", size: 24)),
-//            trailing: Button(action: { self.showingNotifications = true }) {
-//                Image(systemName: "bell.fill")
-//            }
-//        )
-//        .sheet(isPresented: $showingNotifications) {
-//            NavigationView {
-//                NotificationsView(showingNotifications: $showingNotifications)
-//            }
-//        }
-//        
-//    }
-//}
-
-
 struct ViewClosetsView: View {
     // Sample posts data
-    let posts = [Post(username: "user1"), Post(username: "user2")]
+    let posts = [Post(username: "Carly"), Post(username: "Mike"), Post(username: "user1"), Post(username: "user2")]
     @State private var showingNotifications = false
     @State private var showingShippingPayment = false // State to present the ShippingPaymentView
     
@@ -331,12 +254,22 @@ struct ViewClosetsView: View {
                                 Image(systemName: "heart") // Heart icon placeholder
                                 Image(systemName: "bubble.left") // Comment icon placeholder
                                 Image(systemName: "bookmark") // Bookmark icon placeholder
-                                Spacer()
-                                Button("Rent/Buy") {
+                                Spacer() // This will push the button to the right
+                                Button(action: {
                                     showingShippingPayment = true // Trigger the presentation of ShippingPaymentView
+                                }) {
+                                    Text("Product Info")
+                                        .bold() // Make the text bold
+                                        .padding(.vertical, 6) // Add vertical padding
+                                        .padding(.horizontal, 36) // Add horizontal padding
+                                        .foregroundColor(.white) // Set the text color to white
+                                        .background(Color.blue) // Set the background color to blue
+                                        .cornerRadius(10) // Round the corners
                                 }
+                                .frame(width: 180) // Set a fixed width for the button
                             }
                             .padding(.horizontal)
+
                         }
                         .padding(.bottom)
                     }
@@ -469,9 +402,6 @@ struct FulfillmentView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                // Add more space at the top if necessary
-                Spacer(minLength: 20) // This adds space at the top inside the ScrollView
-
                 HStack {
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
@@ -560,8 +490,8 @@ struct ShippingPaymentView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 15) { // Adjust
-                Spacer(minLength: 10) // This adds space at the top inside the ScrollViewspacing as needed
+            VStack(alignment: .leading, spacing: 15) {
+                Spacer(minLength: 4)
                 // Navigation Bar
                 HStack {
                     Button(action: {
@@ -624,23 +554,21 @@ struct ShippingPaymentView: View {
 
                 // Payment Button
                 Button(action: {
-                    let username = "venmo-username" // Replace with the actual Venmo username
-                    let amount = "1.00" // The amount to pay
-                    let note = "Payment for goods" // A note for the payment
+                    let venmoUsername = "FROC-Marketplace"
+                    let paymentAmount = 25.00  // Example amount
+                    let paymentNote = "Payment for services"
 
-                    // Create the URL string for Venmo
-                    let urlString = "venmo://paycharge?txn=pay&recipients=\(username)&amount=\(amount)&note=\(note)"
+                    // Encode the payment note to ensure it’s URL safe
+                    let encodedNote = paymentNote.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
 
-                    // Encode the URL string
-                    let encodedUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                    // Create the Venmo URL string
+                    let venmoURLString = "venmo://paycharge?txn=pay&recipients=\(venmoUsername)&amount=\(paymentAmount)&note=\(encodedNote)"
 
-                    // Check if the URL can be opened
-                    if let url = URL(string: encodedUrlString!), UIApplication.shared.canOpenURL(url) {
-                        // Open the URL
-                        UIApplication.shared.open(url)
+                    // Open the URL to launch Venmo app
+                    if let venmoURL = URL(string: venmoURLString), UIApplication.shared.canOpenURL(venmoURL) {
+                        UIApplication.shared.open(venmoURL)
                     } else {
-                        // Handle the error, such as showing an alert to the user
-                        print("Cannot open Venmo")
+                        print("Venmo app is not installed.")
                     }
                 }) {
                     HStack {
