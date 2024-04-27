@@ -208,7 +208,7 @@ struct Post: Identifiable {
 
 struct ViewClosetsView: View {
     // Sample posts data
-    let posts = [Post(username: "Carly"), Post(username: "Mike"), Post(username: "user1"), Post(username: "user2")]
+    let posts = [Post(username: "Carly"), Post(username: "Mike"), Post(username: "user1"), Post(username: "user2"), Post(username: "Nate"), Post(username: "Wiggins"), Post(username: "Adoni"), Post(username: "userxx701")]
     @State private var showingNotifications = false
     @State private var showingShippingPayment = false // State to present the ShippingPaymentView
     
