@@ -455,6 +455,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FROC3/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "FROC uses your camera to help you capture pictures and share them on FROC";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "FROC uses your camera roll to help you share photos and videos on FROC";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -485,6 +487,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FROC3/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "FROC uses your camera to help you capture pictures and share them on FROC";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "FROC uses your camera roll to help you share photos and videos on FROC";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
