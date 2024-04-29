@@ -2,6 +2,7 @@ import SwiftUI
 import Amplify
 import PhotosUI
 
+//note for next time, connect all variables together and structure code better. Store those vars on AWS and figure out user authentication. From there you should be good to deploy
 struct ContentView: View {
     @State private var email: String = ""
     @State private var password: String = ""
@@ -139,12 +140,10 @@ struct SignedInView: View {
     var email: String
     
     var body: some View {
-        // Your TabView
-        
             TabView {
                 ViewClosetsView()
                     .tabItem {
-                        Image(systemName: "eye.fill") // Use appropriate SF Symbols
+                        Image(systemName: "eye.fill")
                         Text("View Closets")
                     }
                 
@@ -375,7 +374,6 @@ struct PostView: View {
     }
 }
 
-
 // Implementing the size selection view
 struct SizeSelectionView: View {
     @Binding var selectedSizes: [String]
@@ -398,7 +396,7 @@ struct SizeSelectionView: View {
         .frame(height: 44) // Set a fixed height for the ScrollView
     }
 }
-
+// test
 struct SizeButton: View {
     var size: String
     var isSelected: Bool
