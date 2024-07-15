@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA51396F2C45A50800C38C31 /* Billabong.otf in Resources */ = {isa = PBXBuildFile; fileRef = FA51396E2C45A50800C38C31 /* Billabong.otf */; };
 		FABC40082C37A0AF0037E581 /* FROC5App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC40072C37A0AF0037E581 /* FROC5App.swift */; };
 		FABC400A2C37A0AF0037E581 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC40092C37A0AF0037E581 /* ContentView.swift */; };
 		FABC400C2C37A0B00037E581 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FABC400B2C37A0B00037E581 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA51396E2C45A50800C38C31 /* Billabong.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.otf; sourceTree = "<group>"; };
 		FABC40042C37A0AF0037E581 /* FROC5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FROC5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABC40072C37A0AF0037E581 /* FROC5App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FROC5App.swift; sourceTree = "<group>"; };
 		FABC40092C37A0AF0037E581 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		FABC40062C37A0AF0037E581 /* FROC5 */ = {
 			isa = PBXGroup;
 			children = (
+				FA51396E2C45A50800C38C31 /* Billabong.otf */,
 				FABC40222C389ADC0037E581 /* Info.plist */,
 				FABC40072C37A0AF0037E581 /* FROC5App.swift */,
 				FABC40092C37A0AF0037E581 /* ContentView.swift */,
@@ -167,6 +170,7 @@
 			files = (
 				FABC400F2C37A0B00037E581 /* Preview Assets.xcassets in Resources */,
 				FABC401F2C37A8A10037E581 /* GoogleService-Info.plist in Resources */,
+				FA51396F2C45A50800C38C31 /* Billabong.otf in Resources */,
 				FABC400C2C37A0B00037E581 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,14 +8,20 @@
 import SwiftUI
 import Firebase
 
-@UIApplicationMain
-class FROC5App: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+@main
+struct FROC5App: App {
+    
+    init() {
         FirebaseApp.configure()
-        return true
+    }
+
+    var body: some Scene {
+        WindowGroup {
+            let userStore = UserStore()
+            ContentView()
+                .environmentObject(PostStore())
+                .environmentObject(SessionStore(userStore: userStore))
+                .environmentObject(userStore)
+        }
     }
 }
