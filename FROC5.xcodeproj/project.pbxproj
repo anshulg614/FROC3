@@ -280,6 +280,7 @@
 		FABC3FFB2C37A0AF0037E581 = {
 			isa = PBXGroup;
 			children = (
+				FAA244CF2C712F1000CE3E2C /* .gitignore */,
 				FABC40062C37A0AF0037E581 /* FROC5 */,
 				FABC40052C37A0AF0037E581 /* Products */,
 				FABC40232C38EC6E0037E581 /* Frameworks */,
@@ -309,7 +310,6 @@
 				FABC400B2C37A0B00037E581 /* Assets.xcassets */,
 				FABC401E2C37A8A10037E581 /* GoogleService-Info.plist */,
 				FABC400D2C37A0B00037E581 /* Preview Content */,
-				FAA244CF2C712F1000CE3E2C /* .gitignore */,
 			);
 			path = FROC5;
 			sourceTree = "<group>";
