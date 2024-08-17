@@ -49,6 +49,7 @@
 		FAA244C92C70622E00CE3E2C /* BuyerOrRenterNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA244C82C70622E00CE3E2C /* BuyerOrRenterNotificationView.swift */; };
 		FAA244CC2C70626400CE3E2C /* CountdownTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA244CB2C70626400CE3E2C /* CountdownTimerView.swift */; };
 		FAA244CE2C70627D00CE3E2C /* AdminApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA244CD2C70627D00CE3E2C /* AdminApprovalView.swift */; };
+		FAA244D02C712F1000CE3E2C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = FAA244CF2C712F1000CE3E2C /* .gitignore */; };
 		FAA670C12C5C7045005B625F /* froc5-cc696-firebase-adminsdk-yu5v0-29ca05333c.json in Resources */ = {isa = PBXBuildFile; fileRef = FAA670C02C5C7045005B625F /* froc5-cc696-firebase-adminsdk-yu5v0-29ca05333c.json */; };
 		FAA670C42C5C709E005B625F /* Discovery in Frameworks */ = {isa = PBXBuildFile; productRef = FAA670C32C5C709E005B625F /* Discovery */; };
 		FAA670C62C5C709E005B625F /* GoogleAPIRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = FAA670C52C5C709E005B625F /* GoogleAPIRuntime */; };
@@ -113,6 +114,7 @@
 		FAA244C82C70622E00CE3E2C /* BuyerOrRenterNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerOrRenterNotificationView.swift; sourceTree = "<group>"; };
 		FAA244CB2C70626400CE3E2C /* CountdownTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerView.swift; sourceTree = "<group>"; };
 		FAA244CD2C70627D00CE3E2C /* AdminApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminApprovalView.swift; sourceTree = "<group>"; };
+		FAA244CF2C712F1000CE3E2C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		FAA670BF2C5C6BF0005B625F /* FROC5.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FROC5.entitlements; sourceTree = "<group>"; };
 		FAA670C02C5C7045005B625F /* froc5-cc696-firebase-adminsdk-yu5v0-29ca05333c.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "froc5-cc696-firebase-adminsdk-yu5v0-29ca05333c.json"; sourceTree = "<group>"; };
 		FABC40042C37A0AF0037E581 /* FROC5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FROC5.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -307,6 +309,7 @@
 				FABC400B2C37A0B00037E581 /* Assets.xcassets */,
 				FABC401E2C37A8A10037E581 /* GoogleService-Info.plist */,
 				FABC400D2C37A0B00037E581 /* Preview Content */,
+				FAA244CF2C712F1000CE3E2C /* .gitignore */,
 			);
 			path = FROC5;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA244D02C712F1000CE3E2C /* .gitignore in Resources */,
 				FABC400F2C37A0B00037E581 /* Preview Assets.xcassets in Resources */,
 				FABC401F2C37A8A10037E581 /* GoogleService-Info.plist in Resources */,
 				FA5139732C55B65E00C38C31 /* termsOfService.html in Resources */,
